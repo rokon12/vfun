@@ -1,0 +1,27 @@
+.locks-svg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  overflow: visible;
+}
+
+.locks-readouts { left: 0; }
+.locks-readouts .locks-unit { width: 68px; }
+.locks-readouts .win .locks-comma { font-size: 42px; }
+
+.locks-legend {
+  position: absolute;
+  left: 0;
+  display: flex;
+  gap: 40px;
+}
+
+.locks-figure { fill: var(--blue); }
+.locks-figure.is-ghost { fill: var(--ink-2); }
+
+.locks-pen-mark {
+  fill: none;
+  stroke: var(--red);
+  stroke-width: 5;
+  stroke-linecap: round;
+}
