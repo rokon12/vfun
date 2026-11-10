@@ -2203,25 +2203,25 @@ html.is-full #deck-fs .exit { display: inline; }
   ]
  },
  "pinning": {
-  "goal": "Answer the question before it is asked: pinning is fixed, this is something else.",
+  "goal": "Someone will ask “isn’t that just pinning?”. Answer it first: pinning was a different problem, it is fixed, and our slow lock is still there.",
   "clicks": [
    {
-    "say": "Plays one second. “Some of you are thinking: that’s the pinning problem. It isn’t, and here is the difference. On JDK 21 a virtual thread that blocked inside synchronized could not unmount. It pinned its carrier. This is 20 tasks on two carriers, each sleeping 100 ms inside its own lock, so no two compete: two at a time, ten rounds, a full second.”",
-    "tip": "It prints about 108 ms on JDK 25. On JDK 21 this laptop measured 1,037 ms.",
+    "say": "The top chart plays for about a second. Then: “Some of you are thinking: that is the pinning problem. It is not, and I want to show you the difference. Pinning was this. On JDK 21, when a virtual thread had to wait inside a synchronized block, it could not step aside. It kept its carrier thread busy for the whole wait. Here is a test for exactly that: twenty tasks, only two carrier threads, and each task sleeps 100 ms inside its own lock. Nobody shares a lock, so nobody should wait for anybody. But on JDK 21 only two could sleep at a time. Ten rounds of 100 ms: a full second.”",
+    "tip": "Run it after you have explained the test. On JDK 25 it prints about 108 ms. The 1,037 ms on the slide is what this laptop measured on JDK 21.",
     "run": "./run.sh pinning",
     "more": null
    },
    {
-    "say": "Plays. “JDK 24 fixed that with JEP 491. The same code on 25: the thread parks even though it holds its monitor, both carriers are free at once, and all twenty sleep at the same time.”",
-    "tip": null,
+    "say": "The lower chart plays. Then: “JDK 24 fixed this, in JEP 491. Same code on JDK 25: a virtual thread that waits inside synchronized now steps aside, even though it still holds the lock. Both carrier threads are free straight away, so all twenty tasks sleep at the same time. About a tenth of a second instead of a full second.”",
+    "tip": "Point at the two clocks: 1,037 ms above, 108 ms below.",
     "run": null,
     "more": null
    },
    {
-    "say": "“So pinning is gone, and our reservation still takes 3.3 seconds. Pinning was about the carrier. Our problem is the lock itself. Pinning was the JVM’s problem. The wide lock is ours.”",
-    "tip": null,
+    "say": "“So pinning is fixed, and our reservation still takes 3.4 seconds. Why? Pinning was about a carrier thread being held up. Our problem is different: fifty customers all need the same lock, and a lock lets one in at a time. No JDK release changes that. Pinning was the JVM’s problem. The wide lock is ours.”",
+    "tip": "The last two sentences are the caption on the slide.",
     "run": null,
-    "more": "What still pins on JDK 25: blocking inside native code or inside a class initializer."
+    "more": "A carrier thread is one of the few real threads that virtual threads take turns running on. On JDK 25 a virtual thread can still hold on to its carrier while it waits inside native code or inside a class initializer."
    }
   ]
  },
