@@ -2186,19 +2186,19 @@ html.is-full #deck-fs .exit { display: inline; }
   ]
  },
  "demo2-wide": {
-  "goal": "A lock held across a slow call is a pool of size one.",
+  "goal": "The answer is right but slow: the lock lets one customer through at a time, however many threads there are.",
   "clicks": [
    {
-    "say": "Plays 3.4 seconds in real time. Let the staircase run to the end before you speak. “Forty seats, sold correctly, never oversold. And one at a time: forty times 80 ms is 3.2 seconds.”",
-    "tip": null,
+    "say": "The chart draws itself for about 3.4 seconds. Wait until it stops, then: “The result is correct. Forty seats, forty confirmed, ten turned away, nothing oversold. Now look at the clock: 3.4 seconds. The customers went through one at a time, and forty payments at 80 ms each is 3.2 seconds.”",
+    "tip": "Point at the three counters on the left as you name them: confirmed, turned away, clock.",
     "run": null,
     "more": null
    },
    {
-    "say": "“Each row is one customer. Yellow is the one holding the lock while it waits for the payment provider. Everything hatched is a thread parked behind that lock: 49 of them. Virtual threads make waiting cheap. They don’t make a lock hold two people.”",
-    "tip": null,
+    "say": "“Here is how to read the chart. Each row is one customer, fifty rows, and time runs left to right. The yellow piece is the 80 ms in which that customer holds the lock and waits for the payment provider. The hatched part to its left is the same customer waiting for the lock. At the start one customer holds the lock and the other 49 are parked behind it. Each time one finishes, exactly one more gets in. Virtual threads make waiting cheap. They don’t make a lock hold two people.”",
+    "tip": "Trace one row with your finger: hatched first, then yellow. The last two sentences are the caption on the slide.",
     "run": null,
-    "more": "This is demo one again, with the pool of eight replaced by a lock of one."
+    "more": "Same shape as demo one. There the pool let eight requests run and the rest waited. Here the lock lets one run and the rest wait. The last ten customers also wait for the lock, find no seats left, and return at once."
    }
   ]
  },
